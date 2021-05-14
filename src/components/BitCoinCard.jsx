@@ -12,7 +12,7 @@ const InfoContainer = styled(Container)`
 flex-direction: column;
 `
 const Change = styled.span`
-color: ${props=>props.loss ? 'red':'green'}
+color: ${props=>props.loss ? 'red':'green'};
 `
 
 export default function  BitCoinCard(props){
