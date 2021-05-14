@@ -2,34 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7f1bf4ad-9b8d-4efd-86b8-2cad88298e68" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/bg.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screenshots/after-buy-transactions.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screenshots/after-sell.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screenshots/buy-amount.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screenshots/buy-state.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screenshots/crypto-demo.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screenshots/sell-state.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screenshots/starting_point.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="JupyterTrust" id="a881963b-cfb7-45bb-beb7-2384734d25ab" />
   <component name="ProjectId" id="1sVsnfSBWGP543n6QZwxjCNdnaX" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
