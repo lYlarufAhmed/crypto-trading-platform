@@ -2,6 +2,16 @@ import { useEffect, useState } from "react";
 import MyCrpto from "../context/MyCrypto"
 import Dialog from "./Dialog";
 import Header from "./Header";
+import styled from 'styled-components'
+import Holdings from "./Holdings";
+import Transactions from "./Transactions";
+
+
+const Logs = styled.div`
+width: 100%;
+display: flex;
+gap: .7rem;
+`
 
 
 const API_BITCOIN = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin&order=market_cap_desc&per_page=100&page=1&sparkline=false";
@@ -57,7 +67,10 @@ export default function Main() {
         }}>
             <Header></Header>
             <Dialog></Dialog>
-            
+            <Logs>
+                <Holdings/>
+                <Transactions/>
+            </Logs>
         </MyCrpto.Provider>
     )
 

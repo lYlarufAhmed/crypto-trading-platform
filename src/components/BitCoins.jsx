@@ -8,7 +8,7 @@ display: flex;
 // gap: .4rem;
 width: 100%;
 justify-content: center;
-gap: .8rem;
+gap: 1.8rem;
 `
 
 
