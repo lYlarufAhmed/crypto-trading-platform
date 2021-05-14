@@ -18,7 +18,7 @@ export default function BitCoins(props){
         <Wrapper>
             {
                 [data.getBitcoins,data.getEthereum,data.getDogecoin].map((e)=>{
-                     return <BitCoinCard coinName ={e.name} iconImage ={e.image} currentPrice = {e.current_price} marketCap={parseFloat(e.market_cap_change_percentage_24h).toFixed(2)}/>
+                     return <BitCoinCard key={e.id} coinName ={e.name} iconImage ={e.image} currentPrice = {e.current_price} marketCap={parseFloat(e.market_cap_change_percentage_24h).toFixed(2)}/>
                 })
             }
         </Wrapper>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import MyCrpto from "../context/MyCrypto"
+import Dialog from "./Dialog";
 import Header from "./Header";
 
 
@@ -14,20 +15,25 @@ export default function Main() {
     let [dogecoin, setDogecoin] = useState({ name: "", current_price: "", market_cap_change_percentage_24h: "" });
     let [transactions, setTransactions] = useState([]);
     let [holdings, setHoldings] = useState([]);
-
-
+    let [currentlySelected,setCurrentlySelected] = useState({ name: "", current_price: "", market_cap_change_percentage_24h: "" });
+    let [hideDialog, setHideDialog] = useState(true);
     useEffect(
-        async () => {
-            let bitcoinData = await (await fetch(API_BITCOIN)).json();
-            setBitcoins(bitcoinData[0]);
-            let ethereumData = await (await fetch(API_ETHEREUM)).json();
-            setEthereum(ethereumData[0]);
-            let dogecoinData = await (await fetch(API_DOGECOIN)).json();
-            setDogecoin(dogecoinData[0]);
+        ()=>{
+            async function getData(){
+                let bitcoinData = await (await fetch(API_BITCOIN)).json();
+                setBitcoins(bitcoinData[0]);
+                let ethereumData = await (await fetch(API_ETHEREUM)).json();
+                setEthereum(ethereumData[0]);
+                let dogecoinData = await (await fetch(API_DOGECOIN)).json();
+                setDogecoin(dogecoinData[0]);
+                setCurrentlySelected(dogecoinData[0]);
+            }
+             getData();
         }
+      
 
         , []);
-
+        // console.log(currentlySelected);
     return (
         <MyCrpto.Provider value={{
             getWallet: wallet,
@@ -43,9 +49,15 @@ export default function Main() {
             getTransactions: transactions,
             setNewTransactions: setTransactions,
             getHoldings: holdings,
-            setNewHoldings: setHoldings
+            setNewHoldings: setHoldings,
+            getCurrentlySelected: currentlySelected,
+            setNewCurrentlySelected: setCurrentlySelected,
+            getHideDialog: hideDialog,
+            setNewHideDialog: setHideDialog
         }}>
             <Header></Header>
+            <Dialog></Dialog>
+            
         </MyCrpto.Provider>
     )
 
