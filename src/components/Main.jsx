@@ -1,5 +1,8 @@
 import { useState } from "react";
 import MyCrpto from "../context/MyCrypto"
+import Header from "./Header";
+
+
 
 export default function Main(){
     let [wallet,setWallet] = useState(100);
@@ -27,7 +30,7 @@ export default function Main(){
             getHoldings: holdings,
             setNewHoldings: setHoldings
         }}>
-
+            <Header></Header>
         </MyCrpto.Provider>
     )
 
