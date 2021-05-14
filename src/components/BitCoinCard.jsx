@@ -18,11 +18,11 @@ color: ${props=>props.loss ? 'red':'green'};
 export default function  BitCoinCard(props){
     return(
         <Container>
-            <CoinImage/>
+            <CoinImage src={props.iconImage}/>
             <InfoContainer>
-            <h3>$4343</h3>
-                <p>Bitcoin</p>
-                <small>Last 24h: <Change loss>-32</Change></small>
+            <h3>${props.currentPrice}</h3>
+                <p>{props.coinName}</p>
+                <small>Last 24h: <Change loss={props.marketCap<0}>{props.marketCap}</Change></small>
         </InfoContainer>
         </Container>
     )

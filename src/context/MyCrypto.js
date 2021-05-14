@@ -1,7 +1,7 @@
 import { createContext } from "react";
 
 let obj ={
-    Bitcoing: 0
+    name:"",current_price:"",market_cap_change_percentage_24h:""
 }
 
 let MyCrypto = createContext(obj);
