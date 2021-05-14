@@ -1,11 +1,12 @@
 import { useContext } from "react";
 import styled from "styled-components"
 import MyCrypto from "../context/MyCrypto"
+import BitCoins from "./BitCoins";
 
 
 const HeaderContainer = styled.div`
     display:flex;
-    height: 30vh;
+    min-height: 30vh;
     width: 100vh;
     flex-direction:column;
     flex-wrap: wrap;
@@ -42,7 +43,7 @@ export default function Header(){
             <Heading>
                 Portfolio Value: $ {data.getPortfolioValue? data.getPortfolioValue: "0.00"}
             </Heading>
-            
+            <BitCoins />
         </HeaderContainer>
     )
 }
