@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import MyCrypto from "../context/MyCrypto";
+import {useContext} from "react";
 
 const Container = styled.div`
 display: flex;
@@ -30,7 +32,8 @@ border: none;
 `
 
 export default function BitCoinCard(props) {
-    let handleClick = (e)=>console.log(props.coinName, ' Clicked')
+    let data  = useContext(MyCrypto)
+    let handleClick = (e)=> data.setHideDialog(false)
     return (
         <CardWrapper onClick={handleClick}>
             <Card>
