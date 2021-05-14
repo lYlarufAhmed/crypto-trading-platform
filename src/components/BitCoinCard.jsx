@@ -24,10 +24,15 @@ box-shadow: 1px 1px 3px 3px lightgrey;
 gap: .5rem;
 padding: 1rem 1.5rem;
 `
+const CardWrapper = styled.button`
+border: none;
+
+`
 
 export default function BitCoinCard(props) {
+    let handleClick = (e)=>console.log(props.coinName, ' Clicked')
     return (
-        // <Container>
+        <CardWrapper onClick={handleClick}>
             <Card>
                 <CoinImage src={props.iconImage} />
                 <InfoContainer>
@@ -36,6 +41,6 @@ export default function BitCoinCard(props) {
                     <small>Last 24h: <Change loss={props.marketCap < 0}>{props.marketCap}</Change></small>
                 </InfoContainer>
             </Card>
-        // </Container>
+         </CardWrapper>
     )
 }
