@@ -55,7 +55,7 @@ export default function Main() {
             getHoldings: holdings,
             setNewHoldings: setHoldings
         }}>
-            <Header></Header>
+            <Header/>
             <Logs>
                 <Holdings/>
                 <Transactions/>
