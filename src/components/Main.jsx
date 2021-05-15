@@ -24,7 +24,7 @@ export default function Main() {
     let [ethereum, setEthereum] = useState({ name: "", current_price: "", market_cap_change_percentage_24h: "" });
     let [dogecoin, setDogecoin] = useState({ name: "", current_price: "", market_cap_change_percentage_24h: "" });
     let [transactions, setTransactions] = useState([]);
-    let [holdings, setHoldings] = useState([]);
+    let [holdings, setHoldings] = useState({"bitcoin":{stock:0,avg:0},"ethereum":{stock:0,avg:0},"dogecoin":{stock:0,avg:0}});
     let [currentlySelected,setCurrentlySelected] = useState({ name: "", current_price: "", market_cap_change_percentage_24h: "" });
     let [hideDialog, setHideDialog] = useState(true);
     useEffect(
@@ -47,7 +47,7 @@ export default function Main() {
     return (
         <MyCrpto.Provider value={{
             getWallet: wallet,
-            setNewWaller: setWallet,
+            setNewWallet: setWallet,
             getPorfolio: portfolio,
             setNewPortfolio: setPortfolio,
             getBitcoins: bitcoins,

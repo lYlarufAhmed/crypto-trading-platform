@@ -33,7 +33,10 @@ border: none;
 
 export default function BitCoinCard(props) {
     let data  = useContext(MyCrypto)
-    let handleClick = (e)=> data.setNewHideDialog(false)
+    let handleClick = (e)=> {
+        data.setNewCurrentlySelected(props.coinData);
+        data.setNewHideDialog(false);
+    }
     return (
         <CardWrapper onClick={handleClick}>
             <Card>
