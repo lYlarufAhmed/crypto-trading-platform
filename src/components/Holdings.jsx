@@ -18,8 +18,9 @@ export default function Holdings(){
         <Container>
             <h2>Current Holdings</h2>
             {
+                //eslint-disable-next-line
                 coins.map((e,index)=>{
-                   if(e[1].stock > 0) return <HoldingCard coinName={e[0]} holdingObj={e[1]} currentPrice={currentPrices[index]}/>
+                   if(e[1].stock > 0) return <HoldingCard key={e[0]+"-"+Math.random()+"-"+data.getWallet} coinName={e[0]} holdingObj={e[1]} currentPrice={currentPrices[index]}/>
                 })
             }
         </Container>

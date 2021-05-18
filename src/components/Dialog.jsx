@@ -104,7 +104,7 @@ export default function Dialog(props) {
 
     let getMaxSell = () => {
 
-        return 9;
+        return data.getHoldings[data.getCurrentlySelected.id].stock;
     }
 
     let actionHandler =()=>{
@@ -120,15 +120,44 @@ export default function Dialog(props) {
                 let tempObj = JSON.parse(JSON.stringify(data.getHoldings));
                 tempObj[data.getCurrentlySelected.id].stock = newStock;
                 tempObj[data.getCurrentlySelected.id].avg = newAvg;
-                console.log(coin);
-                console.log(newStock);
-                console.log(newAvg);
-                console.log(tempObj);
                 data.setNewHoldings(tempObj);
+                let tempTransaction = JSON.parse(JSON.stringify(data.getTransactions));
+                console.log(tempTransaction);
+                let newObj = {
+                    action:"buy",
+                    coin: data.getCurrentlySelected.name,
+                    pieces: ammount,
+                    price: data.getCurrentlySelected.current_price,
+                    transactionDate: new Date().toLocaleDateString()
+                }
+                tempTransaction.push(newObj);
+                data.setNewTransactions(tempTransaction);
+                data.setNewHideDialog(true);
             }
         }
         else{
-            
+            let price = data.getCurrentlySelected.current_price;
+            data.setNewWallet(data.getWallet+ (ammount*price));
+            let currentHolding = data.getHoldings;
+            if(currentHolding[data.getCurrentlySelected.id]);{
+                let coin = currentHolding[data.getCurrentlySelected.id];
+                let newStock = parseInt(coin.stock) - parseInt(ammount);
+                let tempObj = JSON.parse(JSON.stringify(data.getHoldings));
+                tempObj[data.getCurrentlySelected.id].stock = newStock;
+                data.setNewHoldings(tempObj);
+                let tempTransaction = JSON.parse(JSON.stringify(data.getTransactions));
+                console.log(tempTransaction);
+                let newObj = {
+                    action:"sell",
+                    coin: data.getCurrentlySelected.name,
+                    pieces: ammount,
+                    price: data.getCurrentlySelected.current_price,
+                    transactionDate: new Date().toLocaleDateString()
+                }
+                tempTransaction.push(newObj);
+                data.setNewTransactions(tempTransaction);
+                data.setNewHideDialog(true);
+            } 
         }
     }
 
@@ -147,7 +176,10 @@ export default function Dialog(props) {
                 </Text>
                 <InputContainer >
                     <InputField type="number" onChange={(e) => {
-                        if (e.target.value === "0" ||e.target.value=== "" || parseFloat(e.target.value) > parseFloat(getMaxBuy())) setDisabled(true);
+                        //eslint-disable-next-line
+                        if (e.target.value === "0" ||e.target.value=== "" || parseFloat(e.target.value) > parseFloat(getMaxBuy())&&action==="buy") setDisabled(true);
+                        //eslint-disable-next-line
+                        else if(e.target.value === "0" ||e.target.value=== "" || parseFloat(e.target.value) > parseFloat(getMaxSell()===0?-1:getMaxSell())&&action==="sell") setDisabled(true)
                         else {
                             setDisabled(false);
                             setAmmout(e.target.value);
@@ -157,6 +189,7 @@ export default function Dialog(props) {
                     <Text>
                         Max:
                         {action === "buy" ? getMaxBuy() : getMaxSell()}
+                    
                     </Text>
                 </InputContainer>
                 <RadioWrapper>
