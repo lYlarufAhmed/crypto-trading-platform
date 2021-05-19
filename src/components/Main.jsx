@@ -40,7 +40,7 @@ export default function Main() {
             }
              getData();
         }
-      
+
 
         , []);
         // console.log(currentlySelected);
@@ -65,8 +65,8 @@ export default function Main() {
             getHideDialog: hideDialog,
             setNewHideDialog: setHideDialog
         }}>
-            <Header></Header>
-            <Dialog></Dialog>
+            <Header/>
+            <Dialog/>
             <Logs>
                 <Holdings/>
                 <Transactions/>
