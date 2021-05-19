@@ -48,7 +48,7 @@ export default function Main() {
         <MyCrpto.Provider value={{
             getWallet: wallet,
             setNewWallet: setWallet,
-            getPorfolio: portfolio,
+            getPortfolio: portfolio,
             setNewPortfolio: setPortfolio,
             getBitcoins: bitcoins,
             setNewBitcoins: setBitcoins,

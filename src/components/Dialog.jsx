@@ -106,7 +106,14 @@ export default function Dialog(props) {
 
         return data.getHoldings[data.getCurrentlySelected.id].stock;
     }
-
+    let updatePortfolion = (port)=>{
+        let holding = data.getHoldings;
+        let total = parseFloat(port);
+        for(let keys in holding){
+            total += holding[keys].stock * holding[keys].avg;
+        }
+        data.setNewPortfolio(total);
+    }
     let actionHandler =()=>{
         if(action==="buy"){
             let price = data.getCurrentlySelected.current_price;
@@ -115,7 +122,7 @@ export default function Dialog(props) {
             if(currentHolding[data.getCurrentlySelected.id]);{
                 let coin = currentHolding[data.getCurrentlySelected.id];
                 let holdingsTotalPrice = (coin.stock * coin.avg) + (ammount*price) ;
-                let newStock = parseInt(coin.stock) + parseInt(ammount);
+                let newStock = parseFloat(coin.stock) + parseFloat(ammount);
                 let newAvg = holdingsTotalPrice / newStock;
                 let tempObj = JSON.parse(JSON.stringify(data.getHoldings));
                 tempObj[data.getCurrentlySelected.id].stock = newStock;
@@ -133,6 +140,7 @@ export default function Dialog(props) {
                 tempTransaction.push(newObj);
                 data.setNewTransactions(tempTransaction);
                 data.setNewHideDialog(true);
+                updatePortfolion("+"+(ammount*price));
             }
         }
         else{
@@ -157,6 +165,7 @@ export default function Dialog(props) {
                 tempTransaction.push(newObj);
                 data.setNewTransactions(tempTransaction);
                 data.setNewHideDialog(true);
+                updatePortfolion("-"+(ammount*price));
             } 
         }
     }

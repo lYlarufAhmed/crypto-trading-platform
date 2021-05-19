@@ -41,7 +41,7 @@ export default function Header(){
                 🏛️ Wallet: $ {data.getWallet? data.getWallet: "0.00"}
             </Heading2>
             <Heading>
-                Portfolio Value: $ {data.getPortfolioValue? data.getPortfolioValue: "0.00"}
+                Portfolio Value: $ {data.getPortfolio}
             </Heading>
             <BitCoins />
         </HeaderContainer>

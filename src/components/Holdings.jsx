@@ -13,6 +13,7 @@ export default function Holdings() {
     let data = useContext(MyCrypto);
     let coins = Object.entries(data.getHoldings);
     let currentPrices = [data.getBitcoins.current_price, data.getEthereum.current_price, data.getDogecoin.current_price];
+    console.log("holding");
     console.log(coins);
     return (
         <Container>
