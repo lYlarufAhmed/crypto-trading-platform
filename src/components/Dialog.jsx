@@ -98,7 +98,7 @@ const CloseButton = styled.button`
 const MainContainer = styled.div`
 display: flex;
 flex-direction: column;
-padding: 1rem
+padding: 1rem;
 `
 
 export default function Dialog(props) {

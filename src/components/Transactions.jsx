@@ -6,7 +6,7 @@ import TransactionCard from "./TransactionCard";
 const Container = styled.div`
 display: flex;
 flex-direction: column;
-gap: 1.2rem;
+gap: 10px;
 flex: 1;
 `
 export default function Transactions(){

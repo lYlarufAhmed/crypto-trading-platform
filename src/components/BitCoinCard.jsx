@@ -27,10 +27,11 @@ gap: .5rem;
 align-items: center;
 padding: .3rem .5rem;
 min-width: 15rem;
+background-color: white;
 
-:hover{
+&:hover{
 cursor: pointer;
-background: rgba(231,214,210, .9);
+background: #e7d6d2;
 }
 `
 
