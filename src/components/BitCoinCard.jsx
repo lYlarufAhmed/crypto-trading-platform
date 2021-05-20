@@ -20,16 +20,20 @@ color: ${props => props.loss ? 'red' : 'green'};
 `
 
 const Card = styled(Container)`
-flex: 1 1 30%;
 border-radius: .6rem;
 box-shadow: 1px 1px 3px 3px lightgrey;
+flex:1 1 30rem;
 gap: .5rem;
-padding: 1rem 1.5rem;
-`
-const CardWrapper = styled.button`
-border: none;
+align-items: center;
+padding: .3rem .5rem;
+min-width: 15rem;
 
+:hover{
+cursor: pointer;
+background: rgba(231,214,210, .9);
+}
 `
+
 
 export default function BitCoinCard(props) {
     let data  = useContext(MyCrypto)
@@ -38,8 +42,7 @@ export default function BitCoinCard(props) {
         data.setNewHideDialog(false);
     }
     return (
-        <CardWrapper onClick={handleClick}>
-            <Card>
+            <Card onClick={handleClick}>
                 <CoinImage src={props.iconImage} />
                 <InfoContainer>
                     <h4>${props.currentPrice}</h4>
@@ -47,6 +50,5 @@ export default function BitCoinCard(props) {
                     <small>Last 24h: <Change loss={props.marketCap < 0}>{props.marketCap}</Change></small>
                 </InfoContainer>
             </Card>
-         </CardWrapper>
     )
 }

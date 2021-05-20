@@ -6,21 +6,13 @@ import BitCoins from "./BitCoins";
 
 const HeaderContainer = styled.div`
     display:flex;
-    min-height: 30vh;
-    width: 100vh;
+    width: 70vw;
     flex-direction:column;
     flex-wrap: wrap;
     justify-content:flex-start;
     align-items:center;
 `;
 
-const Heading = styled.h1`
-
-`;
-
-const Heading2 = styled.h2`
-
-`;
 
 const SmallText = styled.small`
     color: #535252;

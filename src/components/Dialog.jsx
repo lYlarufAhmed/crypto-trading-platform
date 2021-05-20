@@ -1,6 +1,7 @@
-import { useContext, useState } from "react";
+import {useContext, useRef, useState} from "react";
 import styled from "styled-components";
 import MyCrypto from "../context/MyCrypto";
+
 const Container = styled.div`
         height: 100vh;
         width: 100vw;
@@ -10,7 +11,7 @@ const Container = styled.div`
         top:0;
         left:0;
         z-index:1;
-        display: ${props=>props.hidden?"none":"flex"};
+        display: ${props => props.hidden ? "none" : "flex"};
    `;
 
 const BlackBg = styled.div`
@@ -28,8 +29,9 @@ const ContentContainer = styled.div`
         display:flex;
         flex-direction: column;
         flex-wrap:wrap;
-        min-height:500px;
-        min-width: 500px;
+        // min-height:500px;
+        width: 40vw;
+        // min-width: 500px;
         background-color:white;
         z-index:3;
         border-radius:20px;
@@ -69,7 +71,10 @@ const ButtonAction = styled.button`
     color:white;
     background-color:black;
     border-radius:10px;
+    width: 80%;
+    align-self: center;
     text-transform:uppercase;
+    margin: 1rem 0;
     &:disabled{
         background-color:grey;
     }
@@ -90,38 +95,45 @@ const CloseButton = styled.button`
     color:white;
     font-weight:bold;
 `;
+const MainContainer = styled.div`
+display: flex;
+flex-direction: column;
+padding: 1rem
+`
 
 export default function Dialog(props) {
     let data = useContext(MyCrypto);
-    console.log("Dialog Data");
-    console.log(data);
+    let inpuRef = useRef()
     let [action, setAction] = useState("buy");
     let [isDisabled, setDisabled] = useState(true)
-    let [ammount,setAmmout] = useState(0);
+    let [ammount, setAmmout] = useState(0);
     let getMaxBuy = () => {
-        return parseFloat(data.getWallet / data.getCurrentlySelected.current_price);
+        return data.getWallet > 0 ? parseFloat(data.getWallet / data.getCurrentlySelected.current_price).toFixed(7) : 0;
     }
 
     let getMaxSell = () => {
 
-        return data.getHoldings[data.getCurrentlySelected.id].stock;
+        let currStock = data.getHoldings[data.getCurrentlySelected.id].stock;
+        currStock = currStock > 0 ? currStock.toFixed(7) : 0
+        return currStock
     }
-    let updatePortfolion = (port)=>{
+    let updatePortfolion = (port) => {
         let holding = data.getHoldings;
         let total = parseFloat(port);
-        for(let keys in holding){
+        for (let keys in holding) {
             total += holding[keys].stock * holding[keys].avg;
         }
         data.setNewPortfolio(total);
     }
-    let actionHandler =()=>{
-        if(action==="buy"){
+    let actionHandler = () => {
+        if (action === "buy") {
             let price = data.getCurrentlySelected.current_price;
-            data.setNewWallet(data.getWallet- (ammount*price));
+            data.setNewWallet(data.getWallet - (ammount * price));
             let currentHolding = data.getHoldings;
-            if(currentHolding[data.getCurrentlySelected.id]);{
+            if (currentHolding[data.getCurrentlySelected.id]) ;
+            {
                 let coin = currentHolding[data.getCurrentlySelected.id];
-                let holdingsTotalPrice = (coin.stock * coin.avg) + (ammount*price) ;
+                let holdingsTotalPrice = (coin.stock * coin.avg) + (ammount * price);
                 let newStock = parseFloat(coin.stock) + parseFloat(ammount);
                 let newAvg = holdingsTotalPrice / newStock;
                 let tempObj = JSON.parse(JSON.stringify(data.getHoldings));
@@ -131,7 +143,7 @@ export default function Dialog(props) {
                 let tempTransaction = JSON.parse(JSON.stringify(data.getTransactions));
                 console.log(tempTransaction);
                 let newObj = {
-                    action:"buy",
+                    action: "buy",
                     coin: data.getCurrentlySelected.name,
                     pieces: ammount,
                     price: data.getCurrentlySelected.current_price,
@@ -139,15 +151,15 @@ export default function Dialog(props) {
                 }
                 tempTransaction.push(newObj);
                 data.setNewTransactions(tempTransaction);
-                data.setNewHideDialog(true);
-                updatePortfolion("+"+(ammount*price));
+                updatePortfolion("+" + (ammount * price));
+                closeDialouge()
             }
-        }
-        else{
+        } else {
             let price = data.getCurrentlySelected.current_price;
-            data.setNewWallet(data.getWallet+ (ammount*price));
+            data.setNewWallet(data.getWallet + (ammount * price));
             let currentHolding = data.getHoldings;
-            if(currentHolding[data.getCurrentlySelected.id]);{
+            if (currentHolding[data.getCurrentlySelected.id]) ;
+            {
                 let coin = currentHolding[data.getCurrentlySelected.id];
                 let newStock = parseInt(coin.stock) - parseInt(ammount);
                 let tempObj = JSON.parse(JSON.stringify(data.getHoldings));
@@ -156,7 +168,7 @@ export default function Dialog(props) {
                 let tempTransaction = JSON.parse(JSON.stringify(data.getTransactions));
                 console.log(tempTransaction);
                 let newObj = {
-                    action:"sell",
+                    action: "sell",
                     coin: data.getCurrentlySelected.name,
                     pieces: ammount,
                     price: data.getCurrentlySelected.current_price,
@@ -164,57 +176,75 @@ export default function Dialog(props) {
                 }
                 tempTransaction.push(newObj);
                 data.setNewTransactions(tempTransaction);
-                data.setNewHideDialog(true);
-                updatePortfolion("-"+(ammount*price));
-            } 
+                updatePortfolion("-" + (ammount * price));
+                closeDialouge()
+            }
         }
+    }
+    let closeDialouge = () => {
+        console.log('closing dialog')
+        inpuRef.current.value = ''
+        data.setNewHideDialog(!data.getHideDialog)
+        setDisabled(true)
+        console.log(inpuRef.current.value)
     }
 
     return (
-        < Container hidden={data.getHideDialog} >
-            <BlackBg onClick={()=> data.setNewHideDialog(!data.getHideDialog)} />
+        < Container hidden={data.getHideDialog}>
+            <BlackBg onClick={closeDialouge}/>
             <ContentContainer>
                 <TitleContainer>
                     <Heading2>
                         {action} {data.getCurrentlySelected.name}
                     </Heading2>
-                    <CloseButton onClick={()=> data.setNewHideDialog(!data.getHideDialog)}>X</CloseButton>
+                    <CloseButton onClick={closeDialouge}>X</CloseButton>
                 </TitleContainer>
-                <Text> Currennt Price: $
-                            {data.getCurrentlySelected.current_price}
+                <MainContainer><Text> Currennt Price: $
+                    {data.getCurrentlySelected.current_price}
                 </Text>
-                <InputContainer >
-                    <InputField type="number" onChange={(e) => {
-                        //eslint-disable-next-line
-                        if (e.target.value === "0" ||e.target.value=== "" || parseFloat(e.target.value) > parseFloat(getMaxBuy())&&action==="buy") setDisabled(true);
-                        //eslint-disable-next-line
-                        else if(e.target.value === "0" ||e.target.value=== "" || parseFloat(e.target.value) > parseFloat(getMaxSell()===0?-1:getMaxSell())&&action==="sell") setDisabled(true)
-                        else {
-                            setDisabled(false);
-                            setAmmout(e.target.value);
-                        }
-                       
-                    }} />
-                    <Text>
-                        Max:
-                        {action === "buy" ? getMaxBuy() : getMaxSell()}
-                    
-                    </Text>
-                </InputContainer>
-                <RadioWrapper>
-                    <RadioButton type="radio" name="action" checked={action === "buy"} onChange={() => setAction("buy")} />
-                    <label htmlFor="a">Buy</label>
-                </RadioWrapper>
-                <RadioWrapper>
-                    <RadioButton type="radio" name="action" checked={action === "sell"} onChange={() => setAction("sell")} />
-                    <label htmlFor="a">Sell</label>
-                </RadioWrapper>
+                    <InputContainer>
+                        <InputField type="number" ref={inpuRef} onChange={(e) => {
+                            //eslint-disable-next-line
+                            if (
+                                (e.target.value === "" || parseFloat(e.target.value) <= 0)
+                                ||
+                                (action === "buy" && parseFloat(e.target.value) >= getMaxBuy())
+                                ||
+                                (action === "sell" && parseFloat(e.target.value) >= getMaxSell())
+                            ) {
+                                setDisabled(true);
+                                // console.log('button diabled', parseFloat(e.target.value),e.target.value, getMaxSell(), getMaxBuy())
+                            }
+                                //eslint-disable-next-line
+                            // setDisabled(true)
+                            else {
+                                setDisabled(false);
+                                setAmmout(e.target.value);
+                            }
 
-                <ButtonAction disabled={isDisabled} onClick={actionHandler}>{action}</ButtonAction>
+                        }}/>
+                            <Text>
+                            Max:
+                            {action === "buy" ? getMaxBuy() : getMaxSell()}
+
+                            </Text>
+                            </InputContainer>
+                            <RadioWrapper>
+                            <RadioButton type="radio" name="action" checked={action === "buy"}
+                            onChange={() => setAction("buy")}/>
+                            <label htmlFor="a">Buy</label>
+                            </RadioWrapper>
+                            <RadioWrapper>
+                            <RadioButton type="radio" name="action" checked={action === "sell"}
+                            onChange={() => setAction("sell")}/>
+                            <label htmlFor="a">Sell</label>
+                            </RadioWrapper>
+
+                            <ButtonAction disabled={isDisabled} onClick={actionHandler}>{action}</ButtonAction></MainContainer>
 
 
-            </ContentContainer>
-        </Container >
+                            </ContentContainer>
+                            </Container>
 
-    )
-}
+                            )
+                            }
