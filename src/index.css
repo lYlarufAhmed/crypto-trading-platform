@@ -10,7 +10,7 @@ body{
     display: flex;
     /*justify-content: flex-start;*/
     flex-direction: column;
-    font-family: "Open Sans";
+    font-family: "Open Sans", sans-serif;
     align-items: center;
     flex-wrap: wrap;
     position: relative;
